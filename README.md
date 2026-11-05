@@ -68,6 +68,24 @@ python3 -m http.server 8000
 
 Or simply open `index.html` in a browser.
 
+## Deploying to Vercel
+
+This project is a zero-config static site — Vercel detects it automatically.
+
+**Via dashboard:** Import the repository, Vercel will detect the framework as
+"Other" and deploy immediately. No build command or output directory needed.
+
+**Via CLI:**
+
+```bash
+npm i -g vercel
+vercel        # preview deployment
+vercel --prod # production deployment
+```
+
+The included `vercel.json` enables clean URLs. All assets use relative paths
+so the site works on any subdomain or custom domain without changes.
+
 ## Customizing for a real business
 
 1. Replace the demo phone number (`+91 98765 43210`) and email
