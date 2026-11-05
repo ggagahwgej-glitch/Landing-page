@@ -1,0 +1,341 @@
+/* ============================================================
+   ELITE ACADEMY — base.css
+   Design tokens, reset, typography, layout utilities, decor
+   ============================================================ */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Surfaces */
+  --bg: #060a13;
+  --bg-2: #080d18;
+  --charcoal: #0f1626;
+  --charcoal-2: #141d31;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-2: rgba(255, 255, 255, 0.055);
+  --surface-3: rgba(255, 255, 255, 0.08);
+
+  /* Lines */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+
+  /* Text */
+  --text: #ecf1fa;
+  --muted: #97a5c6;
+  --muted-2: #6c7a9c;
+
+  /* Accents */
+  --blue: #4f86ff;
+  --blue-deep: #2e63e8;
+  --blue-bright: #7aa7ff;
+  --violet: #8b5cf6;
+  --violet-soft: #a78bfa;
+  --cyan: #22d3ee;
+
+  /* Gradients */
+  --gradient: linear-gradient(135deg, #4f86ff 0%, #8b5cf6 100%);
+  --gradient-cyan: linear-gradient(135deg, #22d3ee 0%, #4f86ff 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(79, 134, 255, 0.16) 0%, rgba(139, 92, 246, 0.16) 100%);
+  --gradient-text: linear-gradient(120deg, #5eb3ff 0%, #9b8bff 50%, #b19bff 100%);
+
+  /* Radii */
+  --r-sm: 10px;
+  --r: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 24px 70px -28px rgba(0, 0, 0, 0.65);
+  --shadow-card: 0 30px 80px -34px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 26px 90px -28px rgba(79, 134, 255, 0.4);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.45s;
+
+  /* Layout */
+  --container: 1240px;
+  --header-h: 76px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background-color: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lock background scroll while the mobile menu is open */
+body.menu-open {
+  overflow-y: hidden;
+}
+
+/* Deep midnight canvas with fixed ambient glow + faint grid */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(79, 134, 255, 0.14), transparent 60%),
+    radial-gradient(900px 560px at 8% 12%, rgba(139, 92, 246, 0.12), transparent 62%),
+    radial-gradient(1000px 800px at 50% 108%, rgba(46, 99, 232, 0.10), transparent 65%),
+    var(--bg);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: radial-gradient(ellipse 130% 90% at 50% 0%, #000 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 130% 90% at 50% 0%, #000 25%, transparent 78%);
+  pointer-events: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-weight: inherit;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #fff;
+}
+
+/* ---------- Accessibility helpers ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 16px;
+  z-index: 300;
+  padding: 10px 18px;
+  border-radius: var(--r-sm);
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: top 0.3s var(--ease);
+}
+
+.skip-link:focus {
+  top: 14px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Layout utilities ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4.5vw, 56px);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(64px, 9vw, 118px);
+}
+
+.section-head {
+  max-width: 660px;
+  margin: 0 auto clamp(44px, 6vw, 72px);
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--violet-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.eyebrow svg {
+  width: 15px;
+  height: 15px;
+  color: var(--blue);
+}
+
+.eyebrow-light {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #dfe7ff;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  margin-top: 22px;
+}
+
+.section-lead {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.08rem);
+  max-width: 56ch;
+}
+
+.section-head .section-lead {
+  margin-inline: auto;
+}
+
+.grad-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Reveal animation ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.75s var(--ease-out) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(-36px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(36px);
+}
+
+[data-reveal].in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- Scrollbar (Chromium) ---------- */
+::-webkit-scrollbar {
+  width: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--blue-deep), var(--violet));
+  border-radius: 99px;
+  border: 3px solid var(--bg);
+}
+
+/* ---------- Film grain noise texture ---------- */
+.noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.035;
+  z-index: 1;
+}
