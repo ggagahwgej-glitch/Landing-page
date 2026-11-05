@@ -244,16 +244,18 @@
   background-position: 0% 50%;
   color: #fff;
   box-shadow:
-    0 14px 34px -14px rgba(79, 134, 255, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    0 14px 34px -14px rgba(79, 134, 255, 0.6),
+    0 0 0 1px rgba(79, 134, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   background-position: 100% 50%;
   box-shadow:
-    0 20px 48px -16px rgba(139, 92, 246, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 20px 48px -16px rgba(139, 92, 246, 0.7),
+    0 0 0 1px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .btn-primary:hover .btn-icon {
